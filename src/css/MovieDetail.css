@@ -1,0 +1,89 @@
+@charset "utf-8";
+
+/* ── 상세 페이지 컨테이너 ─────────────────────────────── */
+.movie-detail{
+  width: 1200px auto;
+  margin-left:140px;                 /* 사이드바 여백 유지 */
+  padding:100px 40px;               /* 위·좌우·아래 패딩 */
+  /* min-height:calc(100vh - 70px);   푸터 안 가리도록 약간 여유 */
+
+  display:flex;
+  gap:40px;                         /* 포스터·정보 간 간격 */
+}
+
+/* 
+min-height:calc(100vh - 70px); 
+
+요소	의미
+min-height	최소 높이를 설정. 이보다 작아지지 않음
+100vh	뷰포트(viewport) 전체 높이의 100% (= 사용자가 보고 있는 브라우저 창 높이)
+- 200px	거기서 200px 빼기
+calc()	CSS에서 수치 계산 시 사용 (단위 혼합 가능)
+
+✅ 동작 원리
+min-height: calc(100vh - 200px);
+→ 브라우저 화면 전체 높이에서 200px을 뺀 만큼은 최소한 차지하도록 강제하는 속성입니다.
+
+즉, 푸터 높이가 약 200px 정도라면, 푸터와 겹치지 않고 항상 본문이 브라우저 창을 꽉 채우도록 보장해줍니다.
+
+만약 콘텐츠가 적어서 자연스럽게 작아질 때, 최소한 푸터를 밀어낼 수 있게 되는 효과.
+
+✅ 왜 쓰나요?
+✔ 화면에 짧은 콘텐츠일 때 푸터가 올라붙지 않도록(고정 푸터처럼 보이게) 안전하게 확보하기 위해 씁니다.
+
+✅ 실무에서 주의
+정확히 푸터가 200px 이 아니라면 그에 맞춰 200px 값을 정확히 푸터 높이로 바꿔야 합니다.
+
+반응형인 경우 min-height: 100vh 만 쓰면 푸터가 콘텐츠와 겹칠 수 있으므로 항상 이런 calc()를 쓰는 게 안전.
+
+
+"calculation" (계산)의 약칭
+
+뜻: "계산하다", CSS 안에서 동적으로 +, -, *, / 계산을 할 수 있게 해주는 함수
+
+발음: [kælk] (캘크)
+
+CSS에서는 calculation을 줄여서 calc()만 사용
+
+*/
+
+/* 포스터 래퍼 */
+.detail-poster img{
+  width:220px;
+  height:auto;
+  object-fit:cover;
+  box-shadow:0 4px 8px rgba(0,0,0,.25);
+}
+
+/* 정보 영역 */
+.detail-info{
+  flex:1;                           /* 남은 공간 전부 차지 */
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.detail-info h2{
+  font-size:28px;
+  font-weight:700;
+  margin:0 0 8px;
+}
+.detail-info .year{font-weight:600;}
+.detail-info .genre{color:#555;}
+.detail-info .rating{font-weight:600;color:#e67e22;}
+.detail-info .desc{line-height:1.6;color:#444;}
+
+.btnToMain {width: 100px; height: 50px; color: #fff; background: #333; padding: 5px 2px; cursor:pointer;}
+
+/* ─ 반응형 : 태블릿 ↓ ─ */
+@media (max-width:1024px){
+  .movie-detail{flex-direction:column;align-items:center;text-align:center;}
+  .detail-poster img{width:200px;}
+  .detail-info{align-items:center;}
+}
+
+/* ─ 반응형 : 모바일 ─ */
+@media (max-width:600px){
+  .movie-detail{padding:60px 20px;}
+  .detail-poster img{width:180px;}
+}

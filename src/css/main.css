@@ -1,0 +1,134 @@
+/* === 본문 : 카드 2열 === */
+.movie-grid {
+  margin-left: 140px;               /* 사이드바 여백 */
+  padding: 100px 40px 80px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(520px, 1fr));
+  gap: 48px 36px;
+}
+
+/* ─ 카드 컨테이너에 3-D 시점 부여 ─ */
+.movie-card{
+  position: relative;
+  height: 262px;            /* 정보 박스 높이와 동일 */
+  perspective: 500px;       /* 깊이(작을수록 각도 효과가 커짐) */
+  perspective-origin: bottom center;
+}
+
+/* ─ 포스터 기본 ─ */
+.poster{
+  position: absolute;
+  top: -25px;
+  left: 23px;
+  width: 146px;
+  height: 216px;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0,0,0,.20);
+  z-index: 2;
+
+  /* 3-D 관련 셋업 */
+  transform-origin: center; /* 가운데 축으로 기울이기 */
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+
+  transition: transform .45s cubic-bezier(.25,.8,.25,1);
+}
+
+/* ─ 마우스 오버 : 윗변 뒤로, 아래는 그대로 ─ */
+.poster:hover{
+  /* ① 뒤로 45° 기울여 사다리꼴  
+     ② 내려오며 깊이감 확보        */
+  transform: perspective(500px) rotateX(45deg) translateY(15px);
+  /* ↳ scale 은 빼서 ‘납작’ 현상을 제거했습니다 */
+}
+
+/* 정보 박스 (795×262) */
+.info {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08);
+  padding: 30px 30px 30px 200px;  /* 146 + 겹침여백 30 + 내부 24 ≈ 200 */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  /* 글씨가 컨테이너를 벗어나지 않도록 자동 줄바꿈 */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.info h2 { font-size: 22px; font-weight: 700; margin: 0; }
+.info .year { font-weight: 600; }
+.info .genre { color: #555; }
+.info .desc { font-size: 14px; color: #666; }
+
+/* 평점 라인 */
+.rating{
+  font-weight:600;
+  color:#e67e22;   /* 주황 계열로 강조 */
+}
+
+
+/* === 태블릿 (1024px 이하, 768px 이상) === */
+@media screen and (max-width: 1024px) and (min-width: 768px) {
+  /* 카드 2열 유지, 간격 조정 */
+  .movie-grid {
+    grid-template-columns: repeat(2, minmax(360px, 1fr));
+    gap: 48px 24px;              /* 위아래 48px, 좌우 24px */
+  }
+  /* 카드 높이 자동화 + 최소 높이 확보 */
+  .movie-card {
+    height: auto;
+    min-height: 450px;          /* 충분히 큰 최소 높이 */
+  }
+  /* 포스터 축소 및 위치 조정 */
+  .poster {
+    width: 120px;
+    height: auto;
+    top: -20px;
+    left: 20px;
+  }
+  /* 정보 박스 패딩 조정 */
+  .info {
+    padding: 40px 20px 40px 160px;  /* 위아래 40px, 왼쪽 160px */
+  }
+}
+
+/* === 모바일 (767px 이하) === */
+@media screen and (max-width: 767px) {
+  /* 1열 레이아웃, 사이드바 여백 해제 */
+  .movie-grid {
+    grid-template-columns: 1fr;
+    margin-left: 0;
+    padding: 20px;
+    gap: 24px 0;               /* 위아래 24px, 좌우 0 */
+  }
+  /* 카드 스택 레이아웃 */
+  .movie-card {
+    position: static;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 60px;
+    margin-bottom: 40px;
+  }
+  /* 포스터 전체폭, 여백 조정 */
+  .poster {
+    position: static;
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    margin: 0 0 20px;
+    transform: none;
+  }
+  /* 정보 박스 스택 아래 배치 */
+  .info {
+    position: static;
+    width: 25rem;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+}

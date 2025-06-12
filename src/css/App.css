@@ -1,0 +1,173 @@
+/* === RESET === */
+*{margin:0;padding:0;}
+/* (파일 상단에) html, body, #root 높이를 100%로 맞춰 줍니다 */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+body{font-family:"맑은 고딕",arial ,sans-serif;background:#e9eef3;color:#222;}
+a{color:inherit;text-decoration:none;}
+img{display:block;}
+
+/* 앱 전체를 세로 flex 컨테이너로 */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;    /* 화면 전체 높이를 채움 */
+}
+
+/* 콘텐츠 영역이 남는 공간을 모두 차지 */
+.content {
+  flex: 1;
+}
+
+.sub_h2_title{
+  border-bottom: 2px solid#ccc; padding: 0px 0px 10px;
+}
+
+/* === 헤더 왼쪽 고정 사이드바 === */
+.sidebar{
+  position:fixed;top:20px;left:0;
+  width:120px;height:100vh;
+  background:transparent;          /* 선·배경 X */
+  display:flex;flex-direction:column;gap:28px;
+  padding-top:20px;
+}
+.logo{font-size:0;line-height:0;padding-left:14px;}
+.logo img{width:92px;}
+
+.gnb ul{list-style:none;padding-left:14px;margin-top:24px;}
+.gnb li{margin:30px 30px;font-size:14px;}
+.gnb li.on a{font-weight:700;}
+.gnb li:last-child{width: 120px;}
+
+
+/* .loading_img{
+  width: 100%;height: 100%;
+  object-fit: cover;
+  position:fixed;
+  z-index:100000000;
+} */
+
+.loading_img {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;       /* 뷰포트 가로 100% */
+  height: 100vh;      /* 뷰포트 세로 100% */
+  object-fit: cover;  /* 이미지 비율 유지하며 잘라서 꽉 채우기 */
+  z-index: 9999;      /* 충분히 높은 값으로 */
+}
+
+.loading_img2{
+  width: 40px;
+}
+
+
+/* 로딩 이미지를 화면 정중앙에 배치하기 위한 flex 컨테이너 */
+.loading-container2 {
+  /* grid 레이아웃이 아닌 flex 로 변경 */
+  display: flex !important;
+  justify-content: center;  /* 가로 중앙 */
+  align-items: center;      /* 세로 중앙 */
+  margin-left: 140px;       /* 사이드바 여백 그대로 */
+  padding: 450px; /* 기존 Main 영역 padding 그대로 */
+}
+
+/* 로딩 이미지 크기 조절(필요시) */
+.loading-container2 .loading_img2 {
+  width: 30px;  /* 적당히 원하는 크기로 */
+  height: auto;
+}
+
+
+.contents_style{
+  margin: 123px 170px 0px;
+  /* display:grid;
+  grid-template-columns:repeat(2,minmax(520px,1fr));
+  gap:48px 36px; */
+}
+
+
+/* === 푸터 === */
+/* footer{background:#000;color:#fff;text-align:center;padding:28px 0;margin-top:60px;} */
+footer{
+  background:#000;
+  color:#fff;
+  height: 70px;
+  display: flex;                  /* flex 적용 */
+  justify-content: center;        /* 수평 중앙 */
+  align-items: center;            /* 수직 중앙 */
+}
+footer address{font-style:normal;font-size:14px;}
+
+/* 폭 1100↓ → 1열 */
+@media(max-width:1100px){
+  .movie-grid{grid-template-columns:1fr;}
+  .info{padding-left:180px;}        /* 여백 조금 줄이기 */
+}
+
+
+
+/* === 모바일 헤더 가로 네비 & 본문 정렬 (767px 이하) === */
+@media screen and (max-width: 767px) {
+  /* 1) 사이드바 → 상단 가로바 */
+  .sidebar {
+    position: fixed;       /* 화면 최상단에 고정 */
+    top: 0;
+    left: 0;
+    width: 100%;           /* 전체 가로폭 */
+    height: auto;          /* 높이는 내용에 맞춰 */
+    background: #e9eef3;   /* 배경색은 기존과 동일하거나 별도 지정 */
+    
+    display: flex;         /* 가로 방향 정렬 */
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+    padding: 10px 0;       /* 위아래 여백 */
+    z-index: 1000;         /* 콘텐츠 위에 오도록 */
+  }
+
+  /* 2) 로고와 네비 연결부 간격 조정 */
+  .sidebar .logo {
+    padding: 0 16px;       /* 좌우 여백 */
+  }
+
+  /* 3) gnb 메뉴를 가로 리스트로 변경 */
+  .gnb ul {
+    display: flex;
+    gap: 16px;             /* 메뉴간 간격 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .gnb li {
+    margin: 0;             /* 기존 세로 마진 제거 */
+    font-size: 14px;
+  }
+
+  /* 4) 본문 전체: 사이드바 여백 해제 & 상단 패딩 확보 */
+  /*    padding-top 은 헤더 높이(10px + 로고+메뉴 높이) 만큼 확보 */
+  .loading-container2,
+  .movie-grid,
+  .contents_style,
+  .movie-detail {
+    margin-left: 0 !important;
+    padding: calc(70px + 10px) 16px 80px; 
+    /* ↑ 70px 헤더 높이 + 10px 여유, 좌우 16px, 아래 80px */
+  }
+
+  /* 5) 로딩 컨테이너 여백 제거 */
+  .loading-container2 {
+    margin-left: 0;
+    padding-top: calc(70px + 10px);
+  }
+
+  /* 6) footer 좌우 패딩 확보 */
+  footer {
+    margin-top: 20px;
+    padding: 0 16px;
+  }
+}

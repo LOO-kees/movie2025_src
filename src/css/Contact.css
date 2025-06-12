@@ -1,0 +1,83 @@
+/* ── 컨테이너 & 중앙 정렬 ── */
+/* .contact_wrap {
+  display: flex;
+  justify-content: center;    
+  padding: 80px 20px;        
+} */
+
+.contents_style {
+  width: 100%;
+  max-width: 600px;           /* 원하는 최대폭 */
+  /* margin: 0 auto;             가로 자동 중앙정렬 */
+  margin-left: 300px;
+}
+
+
+.contents_style h2{
+  margin-bottom: 40px;
+}
+
+/* ── 폼 필드 한 줄씩 flex ── */
+.contact-form p {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+/* ── 라벨 고정폭 & 우측 여백 ── */
+.contact-form label {
+  width: 100px;               /* 라벨 너비 */
+  margin-right: 12px;
+  font-weight: 600;
+  text-align: right;
+}
+
+/* ── 입력창 / textarea 는 남은 공간 채우기 ── */
+.contact-form input,
+.contact-form textarea {
+  flex: 1;                    /* 남은 공간 전부 차지 */
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* ── textarea 높이 조절 ── */
+.contact-form textarea {
+  min-height: 150px;
+  resize: vertical;           /* 세로 방향으로만 리사이즈 */
+}
+
+/* ── 버튼 줄 맞추기 ── */
+.contact-form .full-row {
+  display: flex;
+  justify-content: flex-end;  /* 버튼을 오른쪽 정렬 */
+}
+
+.contact-form button {
+  padding: 8px 24px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+.contact-form button:hover {
+  background-color: #285dae;
+}
+
+/* ── 반응형: 600px 이하에서 세로 스택 ── */
+@media (max-width: 600px) {
+  .contact-form p {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .contact-form label {
+    width: auto;
+    margin-bottom: 6px;
+    text-align: left;
+  }
+  .contact-form .full-row {
+    justify-content: center;
+  }
+}
